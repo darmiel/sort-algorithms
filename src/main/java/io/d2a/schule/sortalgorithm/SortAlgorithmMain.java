@@ -1,6 +1,7 @@
 package io.d2a.schule.sortalgorithm;
 
 import io.d2a.schule.sortalgorithm.algorithms.BubbleSort;
+import io.d2a.schule.sortalgorithm.algorithms.InsertionSort;
 import io.d2a.schule.sortalgorithm.algorithms.RadixSort;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -9,7 +10,7 @@ import java.util.Random;
 
 public class SortAlgorithmMain {
 
-  public static final int ARRAY_SIZE = 8192;
+  public static final int ARRAY_SIZE = 20000;
   public static final Class<? extends SortAlgorithm> ALGORITHM_CLASS = RadixSort.class;
 
   public static void main(String[] args) throws
@@ -31,6 +32,7 @@ public class SortAlgorithmMain {
     // start(array, SortAlgorithmMain.ALGORITHM_CLASS);
 
     for (final Class<? extends SortAlgorithm> clazz : Arrays.asList(
+            InsertionSort.class,
         BubbleSort.class,
         RadixSort.class
         // add / remove sort algorithms here.
