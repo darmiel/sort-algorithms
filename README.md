@@ -9,5 +9,6 @@ in line
 #### Currently integrated sorting algorithms:
 * Bubble
 * Radix (LSD)
+* Insertion
 
 ... `-sort`
