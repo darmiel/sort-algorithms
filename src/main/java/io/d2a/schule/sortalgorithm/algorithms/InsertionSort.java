@@ -17,7 +17,7 @@ public class InsertionSort implements SortAlgorithm {
   public static void insertion(Integer[] line) {
 
     // Durchläuft den Array
-    for (int i = 0; i < line.length - 2; i++) {
+    for (int i = 0; i < line.length - 1; i++) {
 
       int b = i + 1;
       int temp = line[b];
