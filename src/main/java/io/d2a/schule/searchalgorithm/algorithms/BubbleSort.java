@@ -2,7 +2,7 @@ package io.d2a.schule.searchalgorithm.algorithms;
 
 import io.d2a.schule.searchalgorithm.SortAlgorithm;
 
-public class EasySort implements SortAlgorithm {
+public class BubbleSort implements SortAlgorithm {
 
   @Override
   public void sort(final Integer[] array) {

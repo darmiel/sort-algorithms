@@ -1,6 +1,6 @@
 package io.d2a.schule.searchalgorithm;
 
-import io.d2a.schule.searchalgorithm.algorithms.EasySort;
+import io.d2a.schule.searchalgorithm.algorithms.BubbleSort;
 import io.d2a.schule.searchalgorithm.algorithms.RadixSort;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class SortAlgorithmMain {
     // start(array, SortAlgorithmMain.ALGORITHM_CLASS);
 
     for (final Class<? extends SortAlgorithm> clazz : Arrays.asList(
-        EasySort.class,
+        BubbleSort.class,
         RadixSort.class
         // add / remove sort algorithms here.
     )) {
