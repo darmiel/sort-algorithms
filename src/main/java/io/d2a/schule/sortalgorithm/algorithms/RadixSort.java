@@ -1,12 +1,10 @@
-package io.d2a.schule.searchalgorithm.algorithms;
+package io.d2a.schule.sortalgorithm.algorithms;
 
-import io.d2a.schule.searchalgorithm.SortAlgorithm;
-import io.d2a.schule.searchalgorithm.sort.SortOrder;
-import jdk.jshell.spi.ExecutionControl;
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
+import io.d2a.schule.sortalgorithm.SortAlgorithm;
+import io.d2a.schule.sortalgorithm.sort.SortOrder;
 
 /**
- * Radix-Sort is a search algorithm with 0 comparisons.
+ * Radix-Sort is a sort algorithm with 0 comparisons.
  *
  * @see <a href="https://en.m.wikipedia.org/wiki/Radix_sort">Radix_sort</a>
  *

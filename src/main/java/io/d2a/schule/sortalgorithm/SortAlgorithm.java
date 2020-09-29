@@ -1,4 +1,4 @@
-package io.d2a.schule.searchalgorithm;
+package io.d2a.schule.sortalgorithm;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

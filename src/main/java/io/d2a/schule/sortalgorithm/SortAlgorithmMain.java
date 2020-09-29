@@ -1,7 +1,7 @@
-package io.d2a.schule.searchalgorithm;
+package io.d2a.schule.sortalgorithm;
 
-import io.d2a.schule.searchalgorithm.algorithms.BubbleSort;
-import io.d2a.schule.searchalgorithm.algorithms.RadixSort;
+import io.d2a.schule.sortalgorithm.algorithms.BubbleSort;
+import io.d2a.schule.sortalgorithm.algorithms.RadixSort;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -50,7 +50,7 @@ public class SortAlgorithmMain {
       InvocationTargetException,
       InstantiationException {
 
-    // create an instance of SearchAlgorithm
+    // create an instance of SortAlgorithm
     final SortAlgorithm sortAlgorithm = algoClass.getDeclaredConstructor().newInstance();
 
     // get info of algorithm

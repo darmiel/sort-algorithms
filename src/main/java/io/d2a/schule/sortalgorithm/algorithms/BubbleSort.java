@@ -1,7 +1,7 @@
-package io.d2a.schule.searchalgorithm.algorithms;
+package io.d2a.schule.sortalgorithm.algorithms;
 
-import io.d2a.schule.searchalgorithm.SortAlgorithm;
-import io.d2a.schule.searchalgorithm.sort.SortOrder;
+import io.d2a.schule.sortalgorithm.SortAlgorithm;
+import io.d2a.schule.sortalgorithm.sort.SortOrder;
 
 @SortAlgorithm.Info(
     name = "Bubble Sort",
