@@ -1,56 +1,63 @@
 package io.d2a.schule.searchalgorithm;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.util.Arrays;
 import java.util.Random;
 
 /**
+ * Radix-Sort is a search algorithm with 0 comparisons.
+ * @see https://en.m.wikipedia.org/wiki/Radix_sort
+ *
  * <pre>
- * [0003, 0004, 0010, 0015, 0044, 0108, 1004, 1000]
- * --  _
- * [1000, 0010, 0003, 0044, 1004, 0015, 0008, 0108]
- * -- _
- * [1000, 0003, 1004, 0008, 0108, 0010, 0015, 0044]
- * --_
- * [1000, 0003, 1004, 0008, 0010, 0015, 0044, 0108]
- * -_
- * [0003, 0008, 0010, 0015, 0044, 0108, 1000, 1004]
+ *   array = [6, 66, 43, 123, 98, 291, 20, 21, 21, 22, 911]
+ *   n = 1
+ *   |0| |1| |2| |3| |4| |5| |6| |7| |8| |9|
+ *   20 291  22  43                  98
+ *       21     123
+ *       21
+ *      911
+ *
+ *   array = [20, 291, 21, 21, 911, 22, 43, 123, 98]
+ *   n = 2
+ *   |0| |1| |2| |3| |4| |5| |6| |7| |8| |9|
+ *       911  20      43                 291
+ *            21                          98
+ *            21
+ *            22
+ *           123
+ *
+ *   array = [911, 20, 21, 21, 22, 123, 43, 291, 98]
+ *   n = 3
+ *   |0| |1| |2| |3| |4| |5| |6| |7| |8| |9|
+ *     20 123 291
+ *     21
+ *     21
+ *     22
+ *     43
+ *     98
+ *
+ *   array = [20, 21, 21, 22, 43, 98, 123, 291] <- sorted
  * </pre>
- *
- * //
- *
- * array = [1000, 1100, 1110, 1111]
- *  |0|   |1|   |2| |3| |4| |5| |6| |7| |8| |9|
- * 1000  11111
- * 1100
- * 1110
- *
- * array = [1000, 1100, 1110, 1111]
- *  |0|   |1|   ...
- * 1000  1110
- * 1100  1111
- *
- * array = [1000, 1100, 1110, 1111]
- * |0|   |1|   |2| ...
- * 1000 1100
- *      1110
- *      1111
- *
- * array = [1000, 1100, 1110, 1111]  <-- sorted
  */
 public class RadixSort {
 
-  public static final int N_TOO_LOW = -19;
+  public static final int N_TOO_LOW = -1;
   public static final int DIGIT_NOT_FOUND = -404;
 
-  private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
   /**
-   * Returns the n^th digit of a number
+   * Returns the n^th digit of a number:
+   * <pre>
+   *   input = 1337
+   *   n = 2        _
+   *   -> digit = 1337 = 3
+   *   n = 3       _
+   *   -> digit = 1337 = 3
+   *   n = 4      _
+   *   -> digit = 1337 = 1
+   * </pre>
    *
    * @param input Input number
    * @param n     Digit
+   * 
    * @return n^th digit of input number
    */
   private static int getDigit(final int input, final int n) {
@@ -63,13 +70,25 @@ public class RadixSort {
     return (int) Math.floor((input % (int) Math.pow(10, n)) / Math.pow(10, n - 1));
   }
 
-
+  /**
+  * Same as {@link RadixSort#getDigit(input, n)} but returns 0 if digit was not found
+  *
+  * @param input Input number
+  * @param n     Digit
+  *
+  * @return n^th digit of input number or 0 if not found
+  */
   private static int getDigitUnsafe(final int input, final int n) {
     return Math.max(0, getDigit(input, n));
   }
 
   /**
-   * Swaps two objects in an array
+   * Swaps two objects in an array:
+   * <pre>
+   *   array = [1, 2, 3, 4, 5]
+   *   swap (array, 0, 1)
+   *   array = [2, 1, 3, 4, 5]
+   * </pre>
    *
    * @param array The array to swap the objects
    * @param i     Index A)
@@ -82,14 +101,6 @@ public class RadixSort {
     array[j] = o;
   }
 
-  private static void printArray(final Integer[] array) {
-    for (final Integer integer : array) {
-      System.out.printf("%04d, ", integer);
-    }
-    System.out.println();
-  }
-
-
   /**
    * Sorts an array with the radix sort algorithm
    *
@@ -98,7 +109,7 @@ public class RadixSort {
   private static void radixSortLsd(final Integer[] array) {
 
     // an (signed) 32-bit integers' max length is 10
-    // 2 147 483 647
+    // 2^31-1 = 2 147 483 647 = 10 digits
     for (int n = 1; n <= 10; n++) {
 
       // this array holds every value for each n^th digit
@@ -107,10 +118,7 @@ public class RadixSort {
       // first, find frequency of every digit for array initialization
       final int[] frequency = new int[10];
       for (final Integer integer : array) {
-        final int digit = getDigitUnsafe(integer, n);
-        if (digit >= 0) {
-          frequency[digit]++;
-        }
+        frequency[getDigitUnsafe(integer, n)]++;
       }
 
       // now create the arrays of every digit
