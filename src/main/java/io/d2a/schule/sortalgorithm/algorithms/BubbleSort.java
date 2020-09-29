@@ -10,7 +10,7 @@ import io.d2a.schule.sortalgorithm.sort.SortOrder;
 )
 public class BubbleSort implements SortAlgorithm {
 
-  private final static SortOrder order = SortOrder.ASC;
+  public static SortOrder order = SortOrder.ASC;
 
   @Override
   public void sort(final Integer[] array) {

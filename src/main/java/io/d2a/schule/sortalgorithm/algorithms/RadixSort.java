@@ -49,7 +49,7 @@ public class RadixSort implements SortAlgorithm {
   public static final int N_TOO_LOW = -1;
   public static final int DIGIT_NOT_FOUND = -404;
 
-  private static final SortOrder order = SortOrder.ASC;
+  public static SortOrder order = SortOrder.ASC;
 
   /**
    * Returns the n^th digit of a number:
@@ -86,6 +86,21 @@ public class RadixSort implements SortAlgorithm {
    */
   private static int getDigitUnsafe(final int input, final int n) {
     return Math.max(0, getDigit(input, n));
+  }
+
+  private static <T> void reverseArray(final T[] a) {
+    final int length = a.length;
+
+    for (int i = 0; i < length; i++) {
+      final T temp = a[i];
+
+      a[i] = a[length - i - 1];
+      a[length - i - 1] = temp;
+
+      if (i >= length - i - 1) {
+        break;
+      }
+    }
   }
 
   /**
@@ -138,26 +153,23 @@ public class RadixSort implements SortAlgorithm {
       // overwrite current array
       // start from the top left to the bottom right
       int i = 0;
-      if (order == SortOrder.ASC) {
-        for (final int[] digitsb : digits) {
-          for (final int digit : digitsb) {
-            array[i++] = digit;
-          }
+      for (final int[] digitsb : digits) {
+        for (final int digit : digitsb) {
+          array[i++] = digit;
         }
-      } else if (order == SortOrder.DESC) {
-        for (int j = digits.length - 1; j >= 0; j--) {
-          for (int k = digits[j].length - 1; k >= 0; k--) {
-            array[i++] = digits[j][k];
-          }
-        }
-      } else {
-        throw new UnsupportedOperationException("Order-Operator " + order + " not implemented (yet).");
       }
 
       // break loop if there were no more digits found
       if (noMoreDigitFound) {
         break;
       }
+    }
+
+    if (order == SortOrder.DESC) {
+      reverseArray(array);
+    } else if (order != SortOrder.ASC) {
+      throw new UnsupportedOperationException(
+          "Order-Operator " + order + " not implemented (yet).");
     }
   }
 
