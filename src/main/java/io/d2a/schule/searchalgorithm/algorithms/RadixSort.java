@@ -1,11 +1,13 @@
 package io.d2a.schule.searchalgorithm.algorithms;
 
 import io.d2a.schule.searchalgorithm.SortAlgorithm;
-import java.util.Arrays;
-import java.util.Random;
+import io.d2a.schule.searchalgorithm.sort.SortOrder;
+import jdk.jshell.spi.ExecutionControl;
+import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 
 /**
  * Radix-Sort is a search algorithm with 0 comparisons.
+ *
  * @see <a href="https://en.m.wikipedia.org/wiki/Radix_sort">Radix_sort</a>
  *
  * <pre>
@@ -39,10 +41,17 @@ import java.util.Random;
  *   array = [20, 21, 21, 22, 43, 98, 123, 291] <- sorted
  * </pre>
  */
+@SortAlgorithm.Info(
+    name = "Radix (LSD) Sort",
+    author = "darmiel",
+    see = "https://de.wikipedia.org/wiki/Radixsort"
+)
 public class RadixSort implements SortAlgorithm {
 
   public static final int N_TOO_LOW = -1;
   public static final int DIGIT_NOT_FOUND = -404;
+
+  private static final SortOrder order = SortOrder.ASC;
 
   /**
    * Returns the n^th digit of a number:
@@ -58,7 +67,6 @@ public class RadixSort implements SortAlgorithm {
    *
    * @param input Input number
    * @param n     Digit
-   *
    * @return n^th digit of input number
    */
   private static int getDigit(final int input, final int n) {
@@ -76,7 +84,6 @@ public class RadixSort implements SortAlgorithm {
    *
    * @param input Input number
    * @param n     Digit
-   *
    * @return n^th digit of input number or 0 if not found
    */
   private static int getDigitUnsafe(final int input, final int n) {
@@ -133,10 +140,20 @@ public class RadixSort implements SortAlgorithm {
       // overwrite current array
       // start from the top left to the bottom right
       int i = 0;
-      for (final int[] digitsb : digits) {
-        for (final int digit : digitsb) {
-          array[i++] = digit;
+      if (order == SortOrder.ASC) {
+        for (final int[] digitsb : digits) {
+          for (final int digit : digitsb) {
+            array[i++] = digit;
+          }
         }
+      } else if (order == SortOrder.DESC) {
+        for (int j = digits.length - 1; j >= 0; j--) {
+          for (int k = digits[j].length - 1; k >= 0; k--) {
+            array[i++] = digits[j][k];
+          }
+        }
+      } else {
+        throw new UnsupportedOperationException("Order-Operator " + order + " not implemented (yet).");
       }
 
       // break loop if there were no more digits found
@@ -150,23 +167,4 @@ public class RadixSort implements SortAlgorithm {
   public void sort(final Integer[] array) {
     radixSortLsd(array);
   }
-
-  public static void main(String[] args) {
-    // fill array [100] with random numbers from 1000 to 10000
-    final Random random = new Random();
-    final Integer[] array = new Integer[100];
-    for (int i = 0; i < array.length; i++) {
-      array[i] = random.nextInt(10000 - 1000) + 1000;
-    }
-
-    // print array before sort
-    System.out.println(Arrays.toString(array));
-
-    // sort array by radix lsd sort
-    radixSortLsd(array);
-
-    // print array after sort
-    System.out.println(Arrays.toString(array));
-  }
-
 }

@@ -2,6 +2,7 @@ package io.d2a.schule.searchalgorithm;
 
 import io.d2a.schule.searchalgorithm.algorithms.BubbleSort;
 import io.d2a.schule.searchalgorithm.algorithms.RadixSort;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Random;
@@ -52,7 +53,21 @@ public class SortAlgorithmMain {
     // create an instance of SearchAlgorithm
     final SortAlgorithm sortAlgorithm = algoClass.getDeclaredConstructor().newInstance();
 
-    System.out.println("=== Algorithm: " + algoClass.getName());
+    // get info of algorithm
+    final SortAlgorithm.Info sortAlgorithmInfo =
+        algoClass.isAnnotationPresent(SortAlgorithm.Info.class)
+            ? algoClass.getAnnotation(SortAlgorithm.Info.class)
+            : getDefaultInfoFor(algoClass);
+
+    System.out.println("=== Algorithm: " + sortAlgorithmInfo.name());
+    if (!sortAlgorithmInfo.author().isBlank()) {
+      System.out.println("* Implementation author: " + sortAlgorithmInfo.author());
+    }
+    if (!sortAlgorithmInfo.see().isBlank()) {
+      System.out.println("* More information: " + sortAlgorithmInfo.see());
+    }
+    System.out.println();
+
     System.out.println("=== Unsorted:");
     System.out.println(Arrays.toString(array));
 
@@ -70,6 +85,30 @@ public class SortAlgorithmMain {
     System.out.println(Arrays.toString(array));
     System.out.println();
     System.out.println("=== Took: " + (stopwatchTook / Math.pow(10, -6)) + "ms!");
+  }
+
+  private static SortAlgorithm.Info getDefaultInfoFor(final Class<? extends SortAlgorithm> clazz) {
+    return new SortAlgorithm.Info() {
+      @Override
+      public String name() {
+        return clazz.getName() + " [proper name not set!]";
+      }
+
+      @Override
+      public String author() {
+        return "anonymous";
+      }
+
+      @Override
+      public String see() {
+        return "";
+      }
+
+      @Override
+      public Class<? extends Annotation> annotationType() {
+        return null;
+      }
+    };
   }
 
 
