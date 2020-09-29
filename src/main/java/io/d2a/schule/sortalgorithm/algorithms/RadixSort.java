@@ -1,11 +1,12 @@
-package io.d2a.schule.searchalgorithm;
+package io.d2a.schule.sortalgorithm.algorithms;
 
-import java.util.Arrays;
-import java.util.Random;
+import io.d2a.schule.sortalgorithm.SortAlgorithm;
+import io.d2a.schule.sortalgorithm.sort.SortOrder;
 
 /**
- * Radix-Sort is a search algorithm with 0 comparisons.
- * @see https://en.m.wikipedia.org/wiki/Radix_sort
+ * Radix-Sort is a sort algorithm with 0 comparisons.
+ *
+ * @see <a href="https://en.m.wikipedia.org/wiki/Radix_sort">Radix_sort</a>
  *
  * <pre>
  *   array = [6, 66, 43, 123, 98, 291, 20, 21, 21, 22, 911]
@@ -38,10 +39,17 @@ import java.util.Random;
  *   array = [20, 21, 21, 22, 43, 98, 123, 291] <- sorted
  * </pre>
  */
-public class RadixSort {
+@SortAlgorithm.Info(
+    name = "Radix (LSD) Sort",
+    author = "darmiel",
+    see = "https://de.wikipedia.org/wiki/Radixsort"
+)
+public class RadixSort implements SortAlgorithm {
 
   public static final int N_TOO_LOW = -1;
   public static final int DIGIT_NOT_FOUND = -404;
+
+  private static final SortOrder order = SortOrder.ASC;
 
   /**
    * Returns the n^th digit of a number:
@@ -57,7 +65,6 @@ public class RadixSort {
    *
    * @param input Input number
    * @param n     Digit
-   * 
    * @return n^th digit of input number
    */
   private static int getDigit(final int input, final int n) {
@@ -71,34 +78,14 @@ public class RadixSort {
   }
 
   /**
-  * Same as {@link RadixSort#getDigit(input, n)} but returns 0 if digit was not found
-  *
-  * @param input Input number
-  * @param n     Digit
-  *
-  * @return n^th digit of input number or 0 if not found
-  */
+   * Same as {@link RadixSort#getDigit(int, int)}} but returns 0 if digit was not found
+   *
+   * @param input Input number
+   * @param n     Digit
+   * @return n^th digit of input number or 0 if not found
+   */
   private static int getDigitUnsafe(final int input, final int n) {
     return Math.max(0, getDigit(input, n));
-  }
-
-  /**
-   * Swaps two objects in an array:
-   * <pre>
-   *   array = [1, 2, 3, 4, 5]
-   *   swap (array, 0, 1)
-   *   array = [2, 1, 3, 4, 5]
-   * </pre>
-   *
-   * @param array The array to swap the objects
-   * @param i     Index A)
-   * @param j     Index B)
-   * @param <T>   Type of array
-   */
-  private static <T> void swap(final T[] array, final int i, final int j) {
-    final T o = array[i];
-    array[i] = array[j];
-    array[j] = o;
   }
 
   /**
@@ -145,21 +132,26 @@ public class RadixSort {
         digit = Math.max(0, digit);
 
         // Add digit to array
-        // array = [100, 110, 111]
-        // |0| |1| |2| |3| |4| |5| |6| |7| |8| |9|
-        // 100 111  <- this
-        // 110      <- and this
-        //
         digits[digit][frequency[digit]++] = integer;
       }
 
       // overwrite current array
       // start from the top left to the bottom right
       int i = 0;
-      for (final int[] digitsb : digits) {
-        for (final int digit : digitsb) {
-          array[i++] = digit;
+      if (order == SortOrder.ASC) {
+        for (final int[] digitsb : digits) {
+          for (final int digit : digitsb) {
+            array[i++] = digit;
+          }
         }
+      } else if (order == SortOrder.DESC) {
+        for (int j = digits.length - 1; j >= 0; j--) {
+          for (int k = digits[j].length - 1; k >= 0; k--) {
+            array[i++] = digits[j][k];
+          }
+        }
+      } else {
+        throw new UnsupportedOperationException("Order-Operator " + order + " not implemented (yet).");
       }
 
       // break loop if there were no more digits found
@@ -169,22 +161,8 @@ public class RadixSort {
     }
   }
 
-  public static void main(String[] args) {
-    // fill array [100] with random numbers from 1000 to 10000
-    final Random random = new Random();
-    final Integer[] array = new Integer[100];
-    for (int i = 0; i < array.length; i++) {
-      array[i] = random.nextInt(10000 - 1000) + 1000;
-    }
-
-    // print array before sort
-    System.out.println(Arrays.toString(array));
-
-    // sort array by radix lsd sort
+  @Override
+  public void sort(final Integer[] array) {
     radixSortLsd(array);
-
-    // print array after sort
-    System.out.println(Arrays.toString(array));
   }
-
 }
