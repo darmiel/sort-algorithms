@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class SortAlgorithmMain {
 
-  public static final int ARRAY_SIZE = 20000;
+  public static final int ARRAY_SIZE = 10;
   public static final Class<? extends SortAlgorithm> ALGORITHM_CLASS = RadixSort.class;
 
   public static void main(String[] args) throws
@@ -62,10 +62,10 @@ public class SortAlgorithmMain {
             : getDefaultInfoFor(algoClass);
 
     System.out.println("=== Algorithm: " + sortAlgorithmInfo.name());
-    if (!sortAlgorithmInfo.author().isBlank()) {
+    if (!sortAlgorithmInfo.author().trim().isEmpty()) {
       System.out.println("* Implementation author: " + sortAlgorithmInfo.author());
     }
-    if (!sortAlgorithmInfo.see().isBlank()) {
+    if (!sortAlgorithmInfo.see().trim().isEmpty()) {
       System.out.println("* More information: " + sortAlgorithmInfo.see());
     }
     System.out.println();
