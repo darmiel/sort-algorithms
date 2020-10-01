@@ -65,7 +65,7 @@ buckets[3] = new int[] {31, 38};
 buckets[4] = new int[0];
 buckets[5] = new int[0];
 buckets[6] = new int[] {62};
-buckets[7] = new int[] {270, 72, 73, 76};
+buckets[7] = new int[] {270, 72, 73, 76};
 buckets[8] = new int[0];
 buckets[9] = new int[] {690};
 
@@ -86,7 +86,7 @@ buckets[3] = new int[] {};
 buckets[4] = new int[] {};
 buckets[5] = new int[] {};
 buckets[6] = new int[] {690};
-buckets[7] = new int[] {};
+buckets[7] = new int[] {};
 buckets[8] = new int[] {};
 buckets[9] = new int[] {};
 
