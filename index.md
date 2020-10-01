@@ -1,6 +1,3 @@
-## Sort Algorithms
-> *TW - 02.10.2020*
-
 To sort a list up/down, there are some sorting algorithms.  
 You can find a list here: [Wikipedia](https://en.wikipedia.org/wiki/Category:Sorting_algorithms)
 
@@ -8,13 +5,15 @@ We would like to introduce two sorting methods:
 * [Radix Sort](https://en.wikipedia.org/wiki/Radix_sort)
 * [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
 
+---
+
 ### Radix-Sort
 With the radix-sort algorithm there is **no comparison of the values**.  
 Instead, the values are divided into so-called "buckets", depending on the n-th digit of the number.  
-> The LSD (**L**east **S**ignificant **D**igit) starts from the back,  
-> The MSD (**M**ost **S**ignificant **D**igit) from the front.
+* LSD (**L**east **S**ignificant **D**igit) starts from the **back** 
+* MSD (**M**ost **S**ignificant **D**igit) from the **front**
 
-In this example we'll use the LSD method.
+👉 In this example we'll use the **LSD** method.
 
 Let's assume the following array of random numbers:
 ```java
@@ -26,10 +25,10 @@ int[] array = new int[] {
 Now we think of 10 "buckets":
 ![img](assets/images/buckets.png)
 
-In the **1**st round we start now with the **last digit** (*1st digit from back*) of the numbers and put these numbers into the respective bucket.  
+In the **1**st round we start now with the **1st digit** (*from the back*) of the numbers and put these numbers into the respective bucket.  
 The number of rounds is limited to the greatest number of places of all numbers in the array.
 
-> So the number 27***0*** is in bucket **0**
+-> So the number 27***0*** is in bucket **0**
 
 ```java
 final int[][] buckets = new int[10][];
