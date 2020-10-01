@@ -3,6 +3,7 @@ package io.d2a.schule.sortalgorithm;
 import io.d2a.schule.sortalgorithm.algorithms.BubbleSort;
 import io.d2a.schule.sortalgorithm.algorithms.InsertionSort;
 import io.d2a.schule.sortalgorithm.algorithms.RadixSort;
+import io.d2a.schule.sortalgorithm.sort.SortOrder;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -77,7 +78,7 @@ public class SortAlgorithmMain {
     final long stopwatchStart = System.nanoTime();
 
     // execute algorithm
-    sortAlgorithm.sort(array);
+    sortAlgorithm.sort(array, SortOrder.ASC);
 
     // end stopwatch
     final long stopwatchTook = System.nanoTime() - stopwatchStart;
@@ -87,6 +88,9 @@ public class SortAlgorithmMain {
     System.out.println(Arrays.toString(array));
     System.out.println();
     System.out.println("=== Took: " + (stopwatchTook / Math.pow(10, -6)) + "ms!");
+    System.out.println();
+    System.out.println("---");
+    System.out.println();
   }
 
   private static SortAlgorithm.Info getDefaultInfoFor(final Class<? extends SortAlgorithm> clazz) {

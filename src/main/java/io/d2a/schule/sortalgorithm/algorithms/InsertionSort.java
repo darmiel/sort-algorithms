@@ -1,6 +1,8 @@
 package io.d2a.schule.sortalgorithm.algorithms;
 
 import io.d2a.schule.sortalgorithm.SortAlgorithm;
+import io.d2a.schule.sortalgorithm.sort.ArrayUtils;
+import io.d2a.schule.sortalgorithm.sort.SortOrder;
 
 @SortAlgorithm.Info(
     name = "Insertion Sort",
@@ -10,15 +12,14 @@ import io.d2a.schule.sortalgorithm.SortAlgorithm;
 public class InsertionSort implements SortAlgorithm {
 
   @Override
-  public void sort(Integer[] array) {
-    insertion(array);
+  public void sort(Integer[] array, final SortOrder order) {
+    insertion(array, order);
   }
 
-  public static void insertion(Integer[] line) {
+  public static void insertion(Integer[] line, final SortOrder order) {
 
     // Durchläuft den Array
     for (int i = 0; i < line.length - 1; i++) {
-
       int b = i + 1;
       int temp = line[b];
 
@@ -28,7 +29,11 @@ public class InsertionSort implements SortAlgorithm {
       }
 
       line[b] = temp;
-
     }
+
+    if (order == SortOrder.DESC) {
+      ArrayUtils.reverse(line);
+    }
+
   }
 }

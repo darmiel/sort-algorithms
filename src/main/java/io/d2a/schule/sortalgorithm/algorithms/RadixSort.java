@@ -1,6 +1,7 @@
 package io.d2a.schule.sortalgorithm.algorithms;
 
 import io.d2a.schule.sortalgorithm.SortAlgorithm;
+import io.d2a.schule.sortalgorithm.sort.ArrayUtils;
 import io.d2a.schule.sortalgorithm.sort.SortOrder;
 
 /**
@@ -48,8 +49,6 @@ public class RadixSort implements SortAlgorithm {
 
   public static final int N_TOO_LOW = -1;
   public static final int DIGIT_NOT_FOUND = -404;
-
-  public static SortOrder order = SortOrder.ASC;
 
   /**
    * Returns the n^th digit of a number:
@@ -108,7 +107,7 @@ public class RadixSort implements SortAlgorithm {
    *
    * @param array The array to be sorted
    */
-  private static void radixSortLsd(final Integer[] array) {
+  private static void radixSortLsd(final Integer[] array, final SortOrder order) {
 
     // an (signed) 32-bit integers' max length is 10
     // 2^31-1 = 2 147 483 647 = 10 digits
@@ -166,7 +165,7 @@ public class RadixSort implements SortAlgorithm {
     }
 
     if (order == SortOrder.DESC) {
-      reverseArray(array);
+      ArrayUtils.reverse(array);
     } else if (order != SortOrder.ASC) {
       throw new UnsupportedOperationException(
           "Order-Operator " + order + " not implemented (yet).");
@@ -174,7 +173,7 @@ public class RadixSort implements SortAlgorithm {
   }
 
   @Override
-  public void sort(final Integer[] array) {
-    radixSortLsd(array);
+  public void sort(final Integer[] array, final SortOrder order) {
+    radixSortLsd(array, order);
   }
 }
