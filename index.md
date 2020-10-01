@@ -7,6 +7,7 @@ We would like to introduce the following sorting methods:
 - [Radix-Sort](#radix-sort)
   - [Code Example (Radix)](#code-example-radix)
 - [Insertion Sort](#insertion-sort)
+  - [Code Example (Insertion)](#code-example-insertion)
 
 ---
 
@@ -206,4 +207,37 @@ for (int n = 1; n <= 10; n++) {
 
 ## Insertion Sort
 
-> TODO: Gae-Simon add this 😄
+The insertion sort algorithm sorts the row by always comparing two adjacent pairs of numbers.
+If the right number is greater than the left, it exchange the two slots in the array.  
+Then it goes down one step and checks again and exchanges if necessary.
+
+Following this principle, the algorithm runs through the whole array.
+
+![img](https://cdn.programiz.com/sites/tutorial2program/files/Insertion-sort-3_2.png)
+> src: https://cdn.programiz.com/sites/tutorial2program/files/Insertion-sort-3_2.png
+
+### Code Example (Insertion)
+An implementation for Java could look something like this:
+```java
+public void sort(final Integer[] line) {
+  // iterate through the array, start at 0, end at length-1
+  for (int i = 0; i < line.length - 1; i++) {
+
+    // index for the next value to check for
+    int b = i + 1;
+
+    // temporairly save the value at index *b*
+    int temp = line[b];
+
+    // if the left value is smaller, exchange the values
+    while (b > 0 && temp < line[b - 1]) {
+      line[b] = line[b - 1];
+      // go one step down and repeat the comparison
+      b--;
+    }
+
+    // finally insert the temporarily saved value to the arary.
+    line[b] = temp;
+  }
+}
+```
