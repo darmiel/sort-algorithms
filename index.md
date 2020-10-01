@@ -1,37 +1,144 @@
-## Welcome to GitHub Pages
+## Sort Algorithms
+> *TW - 02.10.2020*
 
-You can use the [editor on GitHub](https://github.com/darmiel/sort-algorithms/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+To sort a list up/down, there are some sorting algorithms.  
+You can find a list here: [Wikipedia](https://en.wikipedia.org/wiki/Category:Sorting_algorithms)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+We would like to introduce two sorting methods:
+* [Radix Sort](https://en.wikipedia.org/wiki/Radix_sort)
+* [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
 
-### Markdown
+### Radix-Sort
+With the radix-sort algorithm there is **no comparison of the values**.  
+Instead, the values are divided into so-called "buckets", depending on the n-th digit of the number.  
+> The LSD (**L**east **S**ignificant **D**igit) starts from the back,  
+> The MSD (**M**ost **S**ignificant **D**igit) from the front.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+In this example we'll use the LSD method.
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Let's assume the following array of random numbers:
+```java
+int[] array = new int[] {
+    270, 76, 29, 31, 690, 62, 73, 38, 6, 72, 100
+};
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Now we think of 10 "buckets":
+![img](assets/images/buckets.png)
 
-### Jekyll Themes
+In the **1**st round we start now with the **last digit** (*1st digit from back*) of the numbers and put these numbers into the respective bucket.  
+The number of rounds is limited to the greatest number of places of all numbers in the array.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/darmiel/sort-algorithms/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+> So the number 27***0*** is in bucket **0**
 
-### Support or Contact
+```java
+final int[][] buckets = new int[10][];
+buckets[0] = new int[] {270, 690, 100};
+buckets[1] = new int[] {31};
+buckets[2] = new int[] {62, 72};
+buckets[3] = new int[] {73};
+buckets[4] = new int[0];
+buckets[5] = new int[0];
+buckets[6] = new int[] {76, 6};
+buckets[7] = new int[0];
+buckets[8] = new int[] {38};
+buckets[9] = new int[] {29};
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Now we go from **top to bottom**, **left to right** in the two-dimensional array, and set the array in this order.
+```java
+array = new int[] {
+    270, 690, 100, 31, 62, 72, 73, 76, 6, 38, 29
+};
+```
+
+Now we repeat the whole thing, only this time with the 2nd digit:
+If a number has not enough digits, a 0 is placed in front.
+
+> So the number 2***7***0 is in bucket **7**
+
+```java
+final int[][] buckets = new int[10][];
+buckets[0] = new int[] {100, 06};
+buckets[1] = new int[0];
+buckets[2] = new int[] {29};
+buckets[3] = new int[] {31, 38};
+buckets[4] = new int[0];
+buckets[5] = new int[0];
+buckets[6] = new int[] {62};
+buckets[7] = new int[] {270, 72, 73, 76};
+buckets[8] = new int[0];
+buckets[9] = new int[] {690};
+
+array = new int[] {
+    100, 06, 29, 31, 38, 62, 270, 72, 73, 76, 690
+};
+```
+
+And finally round three, this time the third place from behind.
+If a number has not enough digits, *x times 0* is placed in front.
+
+```java
+final int[][] buckets = new int[10][];
+buckets[0] = new int[] {006, 029, 031, 038, 062, 077, 073, 076};
+buckets[1] = new int[] {100};
+buckets[2] = new int[] {270};
+buckets[3] = new int[] {};
+buckets[4] = new int[] {};
+buckets[5] = new int[] {};
+buckets[6] = new int[] {690};
+buckets[7] = new int[] {};
+buckets[8] = new int[] {};
+buckets[9] = new int[] {};
+
+array = new int[] {
+    006, 029, 031, 038, 062, 077, 073, 076, 100, 270, 690
+};
+```
+
+**🎉 The array is now sorted!  
+And this without any comparisons.**
+
+#### Java Code example
+```java
+// an (signed) 32-bit integers' max length is 10
+// 2^31-1 = 2 147 483 647 = 10 digits
+for (int n = 1; n <= 10; n++) {
+  // this array holds every value for each n^th digit
+  final int[][] digits = new int[10][];
+
+  // first, find frequency of every digit for array initialization
+  final int[] frequency = new int[10];
+  for (final Integer integer : array) {
+    frequency[getDigit(integer, n)]++; // get digit returns the n^th digit of a number
+  }
+
+  // now create the arrays of every digit
+  for (int i = 0; i < frequency.length; i++) {
+    digits[i] = new int[frequency[i]];
+    // reset frequency for later use
+    frequency[i] = 0;
+  }
+
+  // iterate through every object in array
+  for (final int integer : array) {
+    int digit = getDigit(integer, n);
+
+    // Add digit to array
+    digits[digit][frequency[digit]++] = integer;
+  }
+
+  // overwrite current array
+  // start from the top left to the bottom right
+  int i = 0;
+  for (final int[] digitsb : digits) {
+    for (final int digit : digitsb) {
+      array[i++] = digit;
+    }
+  }
+  // break loop if there were no more digits found
+  if (/* noMoreDigitFound */) {
+    break;
+  }
+}
+```
