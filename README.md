@@ -1,4 +1,8 @@
 # sort-algorithms
+You can find the handout [here](https://darmiel.github.io/sort-algorithms/)
+
+---
+
 Create new algorithms under `./src/main/java/io/d2a/schule/sortalgorithm/algorithms`.  
 Then add the class to the 
 [Main](https://github.com/darmiel/sort-algorithms/blob/master/src/main/java/io/d2a/schule/sortalgorithm/SortAlgorithmMain.java) 
