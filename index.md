@@ -1,13 +1,39 @@
 To sort a list up/down, there are some sorting algorithms.  
 You can find a list here: [Wikipedia](https://en.wikipedia.org/wiki/Category:Sorting_algorithms)
 
-We would like to introduce two sorting methods:
-* [Radix Sort](https://en.wikipedia.org/wiki/Radix_sort)
-* [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
+We would like to introduce the following sorting methods:
+- [Bubble-Sort](#bubble-sort)
+  - [Code Example (Bubble)](#code-example-bubble)
+- [Radix-Sort](#radix-sort)
+  - [Code Example (Radix)](#code-example-radix)
+- [Insertion Sort](#insertion-sort)
 
 ---
 
-### Radix-Sort
+## Bubble-Sort
+Bubble sort is probably one of the most simple sorting algorithms.  
+The number of array queries is `2 * (n^2) - 1`, the comparisons are always `n^2 - 1` (or `n^2`)
+
+### Code Example (Bubble)
+```java
+public void sort(final Integer[] array, final SortOrder order) {
+  for (int i = 0; i < array.length; i++) {
+    for (int j = 0; j < array.length; j++) {
+      if (i == j) {
+        continue;
+      }
+
+      if (order == SortOrder.ASC ? (array[i] < array[j]) : (array[i] > array[j])) {
+        final int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
+}
+```
+
+## Radix-Sort
 With the radix-sort algorithm there is **no comparison of the values**.  
 Instead, the values are divided into so-called "buckets", depending on the n-th digit of the number.  
 * LSD (**L**east **S**ignificant **D**igit) starts from the **back** 
@@ -126,7 +152,7 @@ n = 3
 array = [20, 21, 21, 22, 43, 98, 123, 291] <- sorted
 ```
 
-#### Java Code example
+### Code Example (Radix)
 ```java
 // an (signed) 32-bit integers' max length is 10
 // 2^31-1 = 2 147 483 647 = 10 digits
@@ -169,3 +195,7 @@ for (int n = 1; n <= 10; n++) {
   }
 }
 ```
+
+---
+
+## Insertion Sort
