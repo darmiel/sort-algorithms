@@ -12,7 +12,12 @@ We would like to introduce the following sorting methods:
 
 ## Bubble-Sort
 Bubble sort is probably one of the most simple sorting algorithms.  
-The number of array queries is `2 * (n^2) - 1`, the comparisons are always `n^2 - 1` (or `n^2`)
+This algorithm is very stable, but has a runtime of n^2 in the worst and best case:
+- The number of array queries is `2 * (n^2) - 1`, 
+- the comparisons are always `n^2 - 1` (or `n^2`)
+
+Here each value in an array is compared and exchanged if necessary.
+
 
 ### Code Example (Bubble)
 ```java
@@ -153,6 +158,7 @@ array = [20, 21, 21, 22, 43, 98, 123, 291] <- sorted
 ```
 
 ### Code Example (Radix)
+An implementation for Java could look something like this:
 ```java
 // an (signed) 32-bit integers' max length is 10
 // 2^31-1 = 2 147 483 647 = 10 digits
@@ -199,3 +205,5 @@ for (int n = 1; n <= 10; n++) {
 ---
 
 ## Insertion Sort
+
+> TODO: Gae-Simon add this 😄
