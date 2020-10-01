@@ -87,21 +87,6 @@ public class RadixSort implements SortAlgorithm {
     return Math.max(0, getDigit(input, n));
   }
 
-  private static <T> void reverseArray(final T[] a) {
-    final int length = a.length;
-
-    for (int i = 0; i < length; i++) {
-      final T temp = a[i];
-
-      a[i] = a[length - i - 1];
-      a[length - i - 1] = temp;
-
-      if (i >= length - i - 1) {
-        break;
-      }
-    }
-  }
-
   /**
    * Sorts an array with the radix sort algorithm
    *
