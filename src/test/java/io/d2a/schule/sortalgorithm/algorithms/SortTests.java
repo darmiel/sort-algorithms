@@ -2,7 +2,6 @@ package io.d2a.schule.sortalgorithm.algorithms;
 
 import io.d2a.schule.sortalgorithm.SortAlgorithm;
 import io.d2a.schule.sortalgorithm.sort.SortOrder;
-import java.util.Arrays;
 import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 

@@ -3,6 +3,7 @@ package io.d2a.schule.sortalgorithm;
 import io.d2a.schule.sortalgorithm.algorithms.BubbleSort;
 import io.d2a.schule.sortalgorithm.algorithms.InsertionSort;
 import io.d2a.schule.sortalgorithm.algorithms.RadixSort;
+import io.d2a.schule.sortalgorithm.algorithms.SelectionSort;
 import io.d2a.schule.sortalgorithm.sort.SortOrder;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +12,7 @@ import java.util.Random;
 
 public class SortAlgorithmMain {
 
-  public static final int ARRAY_SIZE = 10;
+  public static final int ARRAY_SIZE = 40000;
   public static final Class<? extends SortAlgorithm> ALGORITHM_CLASS = RadixSort.class;
 
   public static void main(String[] args) throws
@@ -33,9 +34,10 @@ public class SortAlgorithmMain {
     // start(array, SortAlgorithmMain.ALGORITHM_CLASS);
 
     for (final Class<? extends SortAlgorithm> clazz : Arrays.asList(
-            InsertionSort.class,
+        InsertionSort.class,
         BubbleSort.class,
-        RadixSort.class
+        RadixSort.class,
+        SelectionSort.class
         // add / remove sort algorithms here.
     )) {
 
@@ -69,10 +71,10 @@ public class SortAlgorithmMain {
     if (!sortAlgorithmInfo.see().trim().isEmpty()) {
       System.out.println("* More information: " + sortAlgorithmInfo.see());
     }
-    System.out.println();
+    //System.out.println();
 
-    System.out.println("=== Unsorted:");
-    System.out.println(Arrays.toString(array));
+   //  System.out.println("=== Unsorted:");
+    // System.out.println(Arrays.toString(array));
 
     // benchmark things
     final long stopwatchStart = System.nanoTime();
@@ -83,10 +85,10 @@ public class SortAlgorithmMain {
     // end stopwatch
     final long stopwatchTook = System.nanoTime() - stopwatchStart;
 
-    System.out.println();
-    System.out.println("=== Sorted:");
-    System.out.println(Arrays.toString(array));
-    System.out.println();
+    //.out.println();
+    //.out.println("=== Sorted:");
+    //System.out.println(Arrays.toString(array));
+    //System.out.println();
     System.out.println("=== Took: " + (stopwatchTook / Math.pow(10, -6)) + "ms!");
     System.out.println();
     System.out.println("---");
