@@ -12,17 +12,14 @@ public class BubbleSort implements SortAlgorithm {
 
   @Override
   public void sort(final Integer[] array, final SortOrder order) {
-    for (int i = 0; i < array.length; i++) {
-      for (int j = 0; j < array.length; j++) {
-        if (i == j) {
-          continue;
-        }
-
-        if (order == SortOrder.ASC ? (array[i] < array[j]) : (array[i] > array[j])) {
-          final int temp = array[i];
-          array[i] = array[j];
+    for (int i = array.length - 1; i >= 0; i--) {
+      for (int j = 1; j <= i; j++) {
+        if (order == SortOrder.ASC ? (array[j - 1] > array[j]) : (array[j - 1] < array[j])) {
+          final int temp = array[j - 1];
+          array[j - 1] = array[j];
           array[j] = temp;
         }
+
       }
     }
   }

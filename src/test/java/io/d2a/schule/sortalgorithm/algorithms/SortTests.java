@@ -2,6 +2,7 @@ package io.d2a.schule.sortalgorithm.algorithms;
 
 import io.d2a.schule.sortalgorithm.SortAlgorithm;
 import io.d2a.schule.sortalgorithm.sort.SortOrder;
+import java.util.Arrays;
 import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 
@@ -26,7 +27,6 @@ public class SortTests {
     // copy
     System.arraycopy(array, 0, expected, 0, array.length);
 
-    // for that we'll be using: BubbleSort
     for (int k = 0; k < expected.length; k++) {
       for (int l = 0; l < expected.length; l++) {
         if (k == l) {
