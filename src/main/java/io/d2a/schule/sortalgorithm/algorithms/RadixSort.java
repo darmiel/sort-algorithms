@@ -30,14 +30,14 @@ import io.d2a.schule.sortalgorithm.sort.SortOrder;
  *   array = [911, 20, 21, 21, 22, 123, 43, 291, 98]
  *   n = 3
  *   |0| |1| |2| |3| |4| |5| |6| |7| |8| |9|
- *     20 123 291
+ *     20 123 291                         911
  *     21
  *     21
  *     22
  *     43
  *     98
  *
- *   array = [20, 21, 21, 22, 43, 98, 123, 291] <- sorted
+ *   array = [20, 21, 21, 22, 43, 98, 123, 291, 911] <- sorted
  * </pre>
  */
 @SortAlgorithm.Info(
